@@ -1,6 +1,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <Windows.h>
+
 
 void enemy(int num) //Written By Ryan
 {
@@ -203,7 +205,7 @@ int main(void)
      }
 
      /* Make the window's context current */
-     
+
      glfwMakeContextCurrent(window);
 
 
@@ -212,16 +214,22 @@ int main(void)
 
      std::cout << glGetString(GL_VERSION) << std::endl;
 
+     int x = 0;
+     double startTime = glfwGetTime();
+
      /* Loop until the user closes the window */
      while (!glfwWindowShouldClose(window))
      {
+          double currentTime = glfwGetTime();
+
           /* Render here */
+          //'The' Loop
+
+          glClear(GL_COLOR_BUFFER_BIT);
           map();
-          enemy(1);
-          enemy(2);
-          enemy(3);
-          enemy(4);
-          enemy(5);
+          enemy(x);
+          if (x < 5 && (currentTime - startTime) > x * 0.2)
+               x += 1;
 
           /* Swap front and back buffers */
           glfwSwapBuffers(window);
