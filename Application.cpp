@@ -162,6 +162,15 @@ void map()
      glVertex3f(0.375f, -0.75f, 0.1f);
      glEnd();
 
+     //Position 1 Start Button
+     glBegin(GL_QUADS);
+     glColor3ub(28, 15, 160);
+     glVertex3f(-1.0f, 1.0f, 0.0f); //top left       
+     glVertex3f(-1.0f, 0.75f, 0.0f);//bottom left
+     glVertex3f(-0.75f, 0.75f, 0.0f); //bottom right        
+     glVertex3f(-0.75f, 1.0f, 0.0f); //top right
+     glEnd();
+
 
 
 
@@ -172,14 +181,16 @@ void map()
 bool towerProx(int click, int click2, int x)
 {
 
-     if (click == 1 && (x == 3 || x == 6 || x == 7)) //Tower 1 has been placed and there is an enemy at one of the areas it can hit.
+     if (click == 1 && (x == 1 || x == 2 || x == 3)) //Tower 1 has been placed and there is an enemy at one of the areas it can hit.
      {
           std::cout << "Enemy at first tower" << std::endl;
+         
           return true;
      }
-     if (click2 == 2 && (x == 10 || x == 14)) //Tower 2 has been placed and there is an enemy at one of the areas it can hit.
+     if (click2 == 2 && (x == 4 || x == 5)) //Tower 2 has been placed and there is an enemy at one of the areas it can hit.
      {
           std::cout << "Enemy at second tower" << std::endl;
+      
           return true;
      }
 
@@ -348,6 +359,7 @@ int main(void)
      int click2 = 0;
      int coins = 1;
      int health = 10;
+     bool start = false;
      double startTime = glfwGetTime();
      double xpos, ypos;
      /* Loop until the user closes the window */
@@ -395,19 +407,35 @@ int main(void)
 
           turret(click); //activate turret          
           turret(click2); //activate turret
-          enemy(x);
-          towerProx(click, click2, x);
+          
+          
+          if (state == GLFW_PRESS && xpos >= 0 && xpos <= 125 && ypos >= 0 && ypos <= 125) 
+               start = true;
+               if (start) {
 
-          if (x < 5 && (currentTime - startTime) > x * 1)
-               x += 1;
-          if (x >= 5 && x <6 && (currentTime - startTime) > x * 1) {
-               x += 1;
-               health--;
-               std::cout << "Health:" << std::endl;
-               std::cout << health << std::endl;
 
-          }
+                    enemy(x);
 
+                    if (x < 5 && (currentTime - startTime) > x * 3) {
+                         x += 1;
+                         towerProx(click, click2, x);
+                    }
+
+                    if (x >= 5 && x <6 && (currentTime - startTime) > x * 3) {
+                         x += 1;
+
+                         health--;
+
+                         std::cout << "Health:" << std::endl;
+
+                         std::cout << health << std::endl;
+
+                    }
+
+               }
+
+          
+          
           /* Swap front and back buffers */
           glfwSwapBuffers(window);
 
