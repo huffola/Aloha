@@ -3,6 +3,12 @@
 #include <iostream>
 #include <Windows.h>
 
+
+
+
+
+
+
 void map()
 {
      glColor3ub(0, 128, 0); // set color green
@@ -168,10 +174,6 @@ void map()
 
 }
 
-void placeholders()
-{
-     
-}
 
 bool towerProx(int placed)
 {
@@ -301,6 +303,11 @@ void turret(int num)
 
 int main(void)
 {
+     // Set OpenGL options
+     glEnable(GL_CULL_FACE);
+     glEnable(GL_BLEND);
+     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
      GLFWwindow* window;
 
      /* Initialize the library */
@@ -328,8 +335,11 @@ int main(void)
 
      int x = 0;
      int k = 0;
+     int z = 0;
+     int g = 0;
      int click = 0;
      int click2 = 0;
+     int coins = 2;
      double startTime = glfwGetTime();
      double xpos, ypos;
      /* Loop until the user closes the window */
@@ -345,23 +355,45 @@ int main(void)
           /* Render here */
 
           
-          map();
-          placeholders();
-          if (state == GLFW_PRESS && xpos >= 250 && xpos <= 500 && ypos >= 0 && ypos <= 250) //if tower 1 placeholder is selected, change "click to 1"
+          map();          
+          if (state == GLFW_PRESS && xpos >= 250 && xpos <= 500 && ypos >= 0 && ypos <= 250 && coins >= 1) 
           {
-               click = 1;               
+               click = 1; 
+
+               coins--;
+
+               z++;
+
+               if(z==1)
                std::cout << "Tower 1 Placed!" << std::endl;
           }// tower 1 if statement
+          else 
+          {
+               g++;
+               if(g==1)
+               std::cout << "Not enough coins" << std::endl;
+          }
           
 
-          if (state == GLFW_PRESS && xpos >= 500 && xpos <= 750 && ypos >= 750 && ypos <= 1000)
+          if (state == GLFW_PRESS && xpos >= 500 && xpos <= 750 && ypos >= 750 && ypos <= 1000 && coins >= 1)
           {
-               click2 = 2;
-               std::cout << "Tower 2 Placed!" << std::endl;
+                    click2 = 2;
+                    coins--;
+
+                    z++;
+
+                    if (z == 1)
+                    std::cout << "Tower 2 Placed!" << std::endl;
+          }
+          else
+          {
+               g++;
+               if (g == 1)
+                    std::cout << "Not enough coins" << std::endl;
           }
 
-          turret(click);
-          turret(click2);
+          turret(click); //activate turret
+          turret(click2); //activate turret
           enemy(x);
           if (x < 5 && (currentTime - startTime) > x * 1)
                x += 1;
