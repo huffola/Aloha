@@ -175,19 +175,14 @@ void map()
 }
 
 
-bool towerProx(int placed)
+bool towerProx(int click, int click2, int x)
 {
-     return false;
 }
 
 bool damage()
 
 {
-     bool towerproximity = towerProx(1);
-     if (towerproximity)
-          return true;
-     else
-          return false;
+    
 }
 
 
@@ -261,7 +256,13 @@ void enemy(int num) //Written By Ryan
           glVertex2f(-0.1f, -0.9f);
           glEnd();
           break;
-
+     case 6: glBegin(GL_TRIANGLES); //Position 14
+          glColor3ub(139, 69, 19); // set color brown
+          glVertex2f(-0.25f, -0.6f);
+          glVertex2f(-0.4f, -0.9f);
+          glVertex2f(-0.1f, -0.9f);
+          glEnd();
+          break;
      }
 }
 
@@ -341,6 +342,7 @@ int main(void)
      int click = 0;
      int click2 = 0;
      int coins = 1;
+     int health = 10;
      double startTime = glfwGetTime();
      double xpos, ypos;
      /* Loop until the user closes the window */
@@ -370,6 +372,7 @@ int main(void)
                }
           }// tower 1 if statement
           
+          
 
           if (state == GLFW_PRESS && xpos >= 500 && xpos <= 750 && ypos >= 750 && ypos <= 1000 && click2 != 2)
           {
@@ -385,11 +388,20 @@ int main(void)
                }
           }// tower 2 if statement
 
-          turret(click); //activate turret
+          turret(click); //activate turret          
           turret(click2); //activate turret
           enemy(x);
+          towerProx(click, click2);
+
           if (x < 5 && (currentTime - startTime) > x * 1)
                x += 1;
+          if (x >= 5 && x <6 && (currentTime - startTime) > x * 1)  {
+              x += 1;
+              health--;
+              std::cout << "Health:" << std::endl;
+              std::cout << health << std::endl;
+               
+          }
 
           /* Swap front and back buffers */
           glfwSwapBuffers(window);
