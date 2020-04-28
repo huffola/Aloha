@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <Windows.h>
-#include <GL/glut.h>
+#include <glut.h>
 
 
 
@@ -13,9 +13,9 @@ bool towerProx(int placed)
 
 void turret(int num)
 {
-     GLfloat r = 102;
-     GLfloat g = 0;
-     GLfloat b = 204;
+     GLubyte r = 102;
+     GLubyte g = 0;
+     GLubyte b = 204;
 
      switch (num)
      {
@@ -33,7 +33,7 @@ void turret(int num)
 
      case 2:
           //Position 15 Turret
-          glBegin(GL_QUADS); 
+          glBegin(GL_QUADS);
           glColor3ub(r, g, b); // set color purple
           glVertex3f(0.25f, -.625f, 0.1f);
           glVertex3f(0.125, -.75f, 0.1f);
@@ -54,34 +54,24 @@ bool damage()
           return false;
 }
 
-void mouse(int button, int state, int x, int y)
-{
-     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && x <= 1000 && x >= 0 && y <= 1000 && y >= 0)
-          turret(1);
-     std::cout << "Working" << std::endl;
-
-     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && x >= 0 && x <= 0.5 && y <= -0.5 && y >= -1)
-          turret(2);
-}
-
 void enemy(int num) //Written By Ryan
 {
-     GLfloat r = 255;
-     GLfloat g = 0;
-     GLfloat b = 0;
+     GLubyte r = 255;
+     GLubyte g = 0;
+     GLubyte b = 0;
      bool isdamaged = damage();
      switch (num)
      {
      case 1: glBegin(GL_TRIANGLES); //Position 3
           if (isdamaged)
           {
-              g = 255;
-              b = 255;
+               g = 255;
+               b = 255;
           }
           glColor3ub(r, g, b);
-          glVertex2f(0.25, 0.9);
-          glVertex2f(0.1, 0.6);
-          glVertex2f(0.4, 0.6);
+          glVertex2f(0.25f, 0.9f);
+          glVertex2f(0.1f, 0.6f);
+          glVertex2f(0.4f, 0.6f);
           glEnd();
           break;
      case 2: glBegin(GL_TRIANGLES); //Position 6
@@ -91,9 +81,9 @@ void enemy(int num) //Written By Ryan
                b = 255;
           }
           glColor3ub(r, g, b);
-          glVertex2f(0.25, 0.4);
-          glVertex2f(0.1, 0.1);
-          glVertex2f(0.4, 0.1);
+          glVertex2f(0.25f, 0.4f);
+          glVertex2f(0.1f, 0.1f);
+          glVertex2f(0.4f, 0.1f);
           glEnd();
           break;
      case 3: glBegin(GL_TRIANGLES); //Position 7
@@ -103,9 +93,9 @@ void enemy(int num) //Written By Ryan
                b = 255;
           }
           glColor3ub(r, g, b);
-          glVertex2f(-0.25, 0.4);
-          glVertex2f(-0.4, 0.1);
-          glVertex2f(-0.1, 0.1);
+          glVertex2f(-0.25f, 0.4f);
+          glVertex2f(-0.4f, 0.1f);
+          glVertex2f(-0.1f, 0.1f);
           glEnd();
           break;
      case 4: glBegin(GL_TRIANGLES); //Position 10
@@ -115,9 +105,9 @@ void enemy(int num) //Written By Ryan
                b = 255;
           }
           glColor3ub(r, g, b);
-          glVertex2f(-0.25, -0.1);
-          glVertex2f(-0.4, -0.4);
-          glVertex2f(-0.1, -0.4);
+          glVertex2f(-0.25f, -0.1f);
+          glVertex2f(-0.4f, -0.4f);
+          glVertex2f(-0.1f, -0.4f);
           glEnd();
 
           break;
@@ -128,9 +118,9 @@ void enemy(int num) //Written By Ryan
                b = 255;
           }
           glColor3ub(r, g, b);
-          glVertex2f(-0.25, -0.6);
-          glVertex2f(-0.4, -0.9);
-          glVertex2f(-0.1, -0.9);
+          glVertex2f(-0.25f, -0.6f);
+          glVertex2f(-0.4f, -0.9f);
+          glVertex2f(-0.1f, -0.9f);
           glEnd();
           break;
 
@@ -279,11 +269,11 @@ void map()
 
      //Position 2 Turret Placeholder
      glBegin(GL_QUADS);
-     glColor3ub(160,160,160); // set color grey
-     glVertex3f(-0.25f,.875f,0.1f);
-     glVertex3f(-0.375,.75f,0.1f);
-     glVertex3f(-0.25f,.625f,0.1f);
-     glVertex3f(-0.125f,0.75f,0.1f);
+     glColor3ub(160, 160, 160); // set color grey
+     glVertex3f(-0.25f, .875f, 0.1f);
+     glVertex3f(-0.375, .75f, 0.1f);
+     glVertex3f(-0.25f, .625f, 0.1f);
+     glVertex3f(-0.125f, 0.75f, 0.1f);
      glEnd();
 
      //Position 15 Turret Placeholder
@@ -295,8 +285,8 @@ void map()
      glVertex3f(0.375f, -0.75f, 0.1f);
      glEnd();
 
-     
-     
+
+
 
 
 
@@ -312,7 +302,6 @@ int main(void)
 
      /* Create a windowed mode window and its OpenGL context */
      window = glfwCreateWindow(1000, 1000, "Aloha Tower Defence", NULL, NULL);
-     
      if (!window)
      {
           glfwTerminate();
@@ -320,11 +309,14 @@ int main(void)
      }
 
      /* Make the window's context current */
-     
+
      glfwMakeContextCurrent(window);
+
      
+   
      if (glewInit() != GLEW_OK)
           std::cout << "Error!" << std::endl;
+
      {
           int argc = 1;
           char* argv[1] = { (char*)"Something" };
@@ -335,32 +327,34 @@ int main(void)
 
      int x = 0;
      double startTime = glfwGetTime();
-
+     double xpos, ypos;
      /* Loop until the user closes the window */
      while (!glfwWindowShouldClose(window))
-         
      {
           double currentTime = glfwGetTime();
-
+          int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+          glfwGetCursorPos(window, &xpos, &ypos);
+          if (state == GLFW_PRESS && xpos >= 250 && xpos <= 500 && ypos >= 0 && ypos <= 250)
+          {
+               turret(1);  //Doesn't seem to currently be working
+               Sleep(10000); //Only here to test if a mouse click pauses the animation
+               std::cout << "Tower 1 Placed!" << std::endl;
+          }
           /* Render here */
-          //'The' Loop
-          glutMouseFunc(mouse);          
-          glClear(GL_COLOR_BUFFER_BIT);         
+
+          glClear(GL_COLOR_BUFFER_BIT);
           map();
           enemy(x);
-         
-          if (x < 5 && (currentTime - startTime) > x * 0.2)
+          if (x < 5 && (currentTime - startTime) > x * 1)
                x += 1;
-         
+
           /* Swap front and back buffers */
           glfwSwapBuffers(window);
 
           /* Poll for and process events */
           glfwPollEvents();
-          
      }
-     
+
      glfwTerminate();
      return 0;
 }
-
