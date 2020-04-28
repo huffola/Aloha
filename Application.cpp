@@ -2,47 +2,132 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <Windows.h>
+#include <glut.h>
 
+void mouseControl()
+{
+
+}
+
+bool towerProx(int placed)
+{
+     return false;
+}
+
+void turret(int num)
+{
+     GLfloat r = 102;
+     GLfloat g = 0;
+     GLfloat b = 204;
+
+     switch (num)
+     {
+     case 1:
+
+          //Position 2 Turret
+          glBegin(GL_QUADS); //will be set to begin if MouseControl activates
+          glColor3ub(r, g, b); // set color purple
+          glVertex3f(-0.25f, .875f, 0.1f);
+          glVertex3f(-0.375, .75f, 0.1f);
+          glVertex3f(-0.25f, .625f, 0.1f);
+          glVertex3f(-0.125f, 0.75f, 0.1f);
+          glEnd();
+          break;
+
+     case 2:
+          //Position 15 Turret
+          glBegin(GL_QUADS); 
+          glColor3ub(r, g, b); // set color purple
+          glVertex3f(0.25f, -.625f, 0.1f);
+          glVertex3f(0.125, -.75f, 0.1f);
+          glVertex3f(0.25f, -0.875f, 0.1f);
+          glVertex3f(0.375f, -0.75f, 0.1f);
+          glEnd();
+          break;
+     }
+}
+
+
+bool damage()
+
+{
+     bool towerproximity = towerProx(1);
+     if (towerproximity)
+          return true;
+     else
+          return false;
+}
 
 void enemy(int num) //Written By Ryan
 {
+     GLfloat r = 255;
+     GLfloat g = 0;
+     GLfloat b = 0;
+     bool isdamaged = damage();
      switch (num)
      {
      case 1: glBegin(GL_TRIANGLES); //Position 3
-          glColor3ub(255, 0, 0);
+          if (isdamaged)
+          {
+              g = 255;
+              b = 255;
+          }
+          glColor3ub(r, g, b);
           glVertex2f(0.25, 0.9);
           glVertex2f(0.1, 0.6);
           glVertex2f(0.4, 0.6);
           glEnd();
           break;
      case 2: glBegin(GL_TRIANGLES); //Position 6
-          glColor3ub(255, 0, 0);
+          if (isdamaged)
+          {
+               g = 255;
+               b = 255;
+          }
+          glColor3ub(r, g, b);
           glVertex2f(0.25, 0.4);
           glVertex2f(0.1, 0.1);
           glVertex2f(0.4, 0.1);
           glEnd();
           break;
      case 3: glBegin(GL_TRIANGLES); //Position 7
-          glColor3ub(255, 0, 0);
+          if (isdamaged)
+          {
+               g = 255;
+               b = 255;
+          }
+          glColor3ub(r, g, b);
           glVertex2f(-0.25, 0.4);
           glVertex2f(-0.4, 0.1);
           glVertex2f(-0.1, 0.1);
           glEnd();
           break;
      case 4: glBegin(GL_TRIANGLES); //Position 10
-          glColor3ub(255, 0, 0);
+          if (isdamaged)
+          {
+               g = 255;
+               b = 255;
+          }
+          glColor3ub(r, g, b);
           glVertex2f(-0.25, -0.1);
           glVertex2f(-0.4, -0.4);
           glVertex2f(-0.1, -0.4);
           glEnd();
+
           break;
      case 5: glBegin(GL_TRIANGLES); //Position 14
-          glColor3ub(255, 0, 0);
+          if (isdamaged)
+          {
+               g = 255;
+               b = 255;
+          }
+          glColor3ub(r, g, b);
           glVertex2f(-0.25, -0.6);
           glVertex2f(-0.4, -0.9);
           glVertex2f(-0.1, -0.9);
           glEnd();
           break;
+
      }
 }
 
@@ -60,7 +145,7 @@ void map()
 
      //Position 2
      glBegin(GL_QUADS);
-     glVertex3f(-1.0f, 1.0f, 0.0f); //top left       
+     glVertex3f(-0.50f, 1.0f, 0.0f); //top left       
      glVertex3f(-0.5f, 0.5f, 0.0f);//bottom left
      glVertex3f(0.0f, 0.5f, 0.0f); //bottom right        
      glVertex3f(0.0f, 1.0f, 0.0f); //top right
@@ -185,8 +270,31 @@ void map()
      glVertex3f(1.0f, -1.0f, 0.0f); //bottom right        
      glVertex3f(1.0f, -0.5f, 0.0f); //top right
      glEnd();
-}
 
+     //Position 2 Turret Placeholder
+     glBegin(GL_QUADS);
+     glColor3ub(160,160,160); // set color grey
+     glVertex3f(-0.25f,.875f,0.1f);
+     glVertex3f(-0.375,.75f,0.1f);
+     glVertex3f(-0.25f,.625f,0.1f);
+     glVertex3f(-0.125f,0.75f,0.1f);
+     glEnd();
+
+     //Position 15 Turret Placeholder
+     glBegin(GL_QUADS);
+     glColor3ub(160, 160, 160); // set color grey
+     glVertex3f(0.25f, -.625f, 0.1f);
+     glVertex3f(0.125, -.75f, 0.1f);
+     glVertex3f(0.25f, -0.875f, 0.1f);
+     glVertex3f(0.375f, -0.75f, 0.1f);
+     glEnd();
+
+     
+     
+
+
+
+}
 
 int main(void)
 {
@@ -241,3 +349,4 @@ int main(void)
      glfwTerminate();
      return 0;
 }
+
