@@ -4,10 +4,7 @@
 #include <Windows.h>
 #include <glut.h>
 
-void mouseControl()
-{
 
-}
 
 bool towerProx(int placed)
 {
@@ -56,6 +53,15 @@ bool damage()
           return true;
      else
           return false;
+}
+
+void mouse(int button, int state, int x, int y)
+{
+     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && x <= 0 && x >= -0.5 && y <= 1 && y >= 0.5)
+          turret(1);
+
+     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && x >= 0 && x <= 0.5 && y <= -0.5 && y >= -1)
+          turret(2);
 }
 
 void enemy(int num) //Written By Ryan
@@ -332,8 +338,9 @@ int main(void)
 
           /* Render here */
           //'The' Loop
-
+         
           glClear(GL_COLOR_BUFFER_BIT);
+          glutMouseFunc(mouse);
           map();
           enemy(x);
           if (x < 5 && (currentTime - startTime) > x * 0.2)
