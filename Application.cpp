@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <Windows.h>
-#include <glut.h>
+#include <GL/glut.h>
 
 
 
@@ -44,7 +44,6 @@ void turret(int num)
      }
 }
 
-
 bool damage()
 
 {
@@ -57,8 +56,9 @@ bool damage()
 
 void mouse(int button, int state, int x, int y)
 {
-     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && x <= 0 && x >= -0.5 && y <= 1 && y >= 0.5)
+     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && x <= 1000 && x >= 0 && y <= 1000 && y >= 0)
           turret(1);
+     std::cout << "Working" << std::endl;
 
      if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && x >= 0 && x <= 0.5 && y <= -0.5 && y >= -1)
           turret(2);
@@ -312,6 +312,7 @@ int main(void)
 
      /* Create a windowed mode window and its OpenGL context */
      window = glfwCreateWindow(1000, 1000, "Aloha Tower Defence", NULL, NULL);
+     
      if (!window)
      {
           glfwTerminate();
@@ -319,12 +320,16 @@ int main(void)
      }
 
      /* Make the window's context current */
-
+     
      glfwMakeContextCurrent(window);
-
-
+     
      if (glewInit() != GLEW_OK)
           std::cout << "Error!" << std::endl;
+     {
+          int argc = 1;
+          char* argv[1] = { (char*)"Something" };
+          glutInit(&argc, argv);
+     }
 
      std::cout << glGetString(GL_VERSION) << std::endl;
 
@@ -333,26 +338,28 @@ int main(void)
 
      /* Loop until the user closes the window */
      while (!glfwWindowShouldClose(window))
+         
      {
           double currentTime = glfwGetTime();
 
           /* Render here */
           //'The' Loop
-         
-          glClear(GL_COLOR_BUFFER_BIT);
-          glutMouseFunc(mouse);
+          glutMouseFunc(mouse);          
+          glClear(GL_COLOR_BUFFER_BIT);         
           map();
           enemy(x);
+         
           if (x < 5 && (currentTime - startTime) > x * 0.2)
                x += 1;
-
+         
           /* Swap front and back buffers */
           glfwSwapBuffers(window);
 
           /* Poll for and process events */
           glfwPollEvents();
+          
      }
-
+     
      glfwTerminate();
      return 0;
 }
