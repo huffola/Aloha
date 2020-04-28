@@ -336,10 +336,11 @@ int main(void)
      int x = 0;
      int k = 0;
      int z = 0;
+     int o = 0;
      int g = 0;
      int click = 0;
      int click2 = 0;
-     int coins = 2;
+     int coins = 1;
      double startTime = glfwGetTime();
      double xpos, ypos;
      /* Loop until the user closes the window */
@@ -347,50 +348,42 @@ int main(void)
      while (!glfwWindowShouldClose(window))
      {
           double currentTime = glfwGetTime();
+
           int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+
           glfwGetCursorPos(window, &xpos, &ypos);
 
           glClear(GL_COLOR_BUFFER_BIT);
-          
-          /* Render here */
-
-          
+                  
           map();          
-          if (state == GLFW_PRESS && xpos >= 250 && xpos <= 500 && ypos >= 0 && ypos <= 250 && coins >= 1) 
+          if (state == GLFW_PRESS && xpos >= 250 && xpos <= 500 && ypos >= 0 && ypos <= 250 && click != 1) 
           {
-               click = 1; 
-
-               coins--;
-
-               z++;
-
-               if(z==1)
-               std::cout << "Tower 1 Placed!" << std::endl;
-          }// tower 1 if statement
-          else 
-          {
-               g++;
-               if(g==1)
-               std::cout << "Not enough coins" << std::endl;
-          }
-          
-
-          if (state == GLFW_PRESS && xpos >= 500 && xpos <= 750 && ypos >= 750 && ypos <= 1000 && coins >= 1)
-          {
-                    click2 = 2;
+               Sleep(200);
+               if (coins >= 1) {
                     coins--;
 
-                    z++;
-
-                    if (z == 1)
-                    std::cout << "Tower 2 Placed!" << std::endl;
-          }
-          else
-          {
-               g++;
-               if (g == 1)
+                    click = 1;
+                    std::cout << " Tower 1 Placed!" << std::endl;
+               }
+               else {
                     std::cout << "Not enough coins" << std::endl;
-          }
+               }
+          }// tower 1 if statement
+          
+
+          if (state == GLFW_PRESS && xpos >= 500 && xpos <= 750 && ypos >= 750 && ypos <= 1000 && click2 != 2)
+          {
+               Sleep(200);
+               if (coins >= 1) {
+                    coins--;
+
+                    click2 = 2;
+                    std::cout << " Tower 2 Placed!" << std::endl;
+               }
+               else {
+                    std::cout << "Not enough coins" << std::endl;
+               }
+          }// tower 2 if statement
 
           turret(click); //activate turret
           turret(click2); //activate turret
