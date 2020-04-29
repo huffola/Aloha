@@ -5,6 +5,7 @@
 
 //Declarations
 int x = 0;
+int k = 0;
 int mobhp = 3;
 int click = 0;
 int click2 = 0;
@@ -13,6 +14,7 @@ int health = 10;
 bool start = false;
 double startTime = glfwGetTime();
 double xpos, ypos;
+double currentTime = glfwGetTime();
 
 void map()
 {
@@ -209,12 +211,14 @@ bool towerProx()
 
 bool damage()
 {
-
-     if (towerProx()) {
-          return true;
+     if (k == 2)
+     {
+          if (towerProx())
+               return true;
+          else
+               return false;
      }
-     else
-          return false;
+     return false;
 
 }
 
@@ -332,7 +336,11 @@ void turret(int num)
 
 int main(void)
 {
-     
+     // Set OpenGL options
+     glEnable(GL_CULL_FACE);
+     glEnable(GL_BLEND);
+     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
      GLFWwindow* window;
 
      /* Initialize the library */
@@ -363,7 +371,7 @@ int main(void)
 
      while (!glfwWindowShouldClose(window))
      {
-          double currentTime = glfwGetTime();
+          currentTime = glfwGetTime();
 
           int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 
@@ -417,9 +425,12 @@ int main(void)
 
 
                enemy(x);
+               k++;
+
                if (x < 5 && (currentTime - startTime) > x * 1) {
                     x += 1;
                     towerProx();
+                    k = 0;
                }
 
                if (x >= 5 && x <6 && (currentTime - startTime) > x * 1) {
@@ -447,3 +458,4 @@ int main(void)
      glfwTerminate();
      return 0;
 }
+
