@@ -3,6 +3,20 @@
 #include <iostream>
 #include <Windows.h>
 
+//Declarations
+int x = 0;
+int k = 0;
+int z = 0;
+int o = 0;
+int g = 0;
+int mobhp = 3;
+int click = 0;
+int click2 = 0;
+int coins = 2;
+int health = 10;
+bool start = false;
+double startTime = glfwGetTime();
+double xpos, ypos;
 
 void map()
 {
@@ -178,9 +192,9 @@ void map()
 
 }
 
-bool towerProx(int click, int click2, int x)
+bool towerProx()
 {
-
+     
      if (click == 1 && (x == 1 || x == 2 || x == 3)) //Tower 1 has been placed and there is an enemy at one of the areas it can hit.
      {
           std::cout << "Enemy at first tower" << std::endl;
@@ -200,10 +214,12 @@ bool towerProx(int click, int click2, int x)
 bool damage()
 {
 
-     if (true)
-          return true;
+     if (towerProx()) {
+          return true;          
+     }
      else
-          return false;
+         return false;
+     
 }
 
 void enemy(int num) //Written By Ryan
@@ -350,18 +366,7 @@ int main(void)
 
      std::cout << glGetString(GL_VERSION) << std::endl;
 
-     int x = 0;
-     int k = 0;
-     int z = 0;
-     int o = 0;
-     int g = 0;
-     int click = 0;
-     int click2 = 0;
-     int coins = 1;
-     int health = 10;
-     bool start = false;
-     double startTime = glfwGetTime();
-     double xpos, ypos;
+     
      /* Loop until the user closes the window */
 
      while (!glfwWindowShouldClose(window))
@@ -418,13 +423,13 @@ int main(void)
           if (start) {
 
 
+               
                enemy(x);
-
                if (x < 5 && (currentTime - startTime) > x * 1) {
-                    x += 1;
-                    towerProx(click, click2, x);
+                    x += 1;                   
+                    towerProx();
                }
-
+               
                if (x >= 5 && x <6 && (currentTime - startTime) > x * 1) {
                     x += 1;
 
