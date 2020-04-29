@@ -9,8 +9,8 @@ int k = 0;
 int mobhp = 3;
 int click = 0;
 int click2 = 0;
-int coins = 2;
-int health = 10;
+int coins = 1;
+int health = 4;
 bool start = false;
 double startTime = glfwGetTime();
 double xpos, ypos;
@@ -183,11 +183,14 @@ void map()
      glVertex3f(-0.75f, 1.0f, 0.0f); //top right
      glEnd();
 
-
-
-
-
-
+     //Position 13 Reset Button
+     glBegin(GL_QUADS);
+     glColor3ub(255, 255, 1);
+     glVertex3f(-1.0f, -1.0f, 0.0f); //top left       
+     glVertex3f(-1.0f, -0.75f, 0.0f);//bottom left
+     glVertex3f(-0.75f, -0.75f, 0.0f); //bottom right        
+     glVertex3f(-0.75f, -1.0f, 0.0f); //top right
+     glEnd();
 }
 
 bool towerProx()
@@ -195,13 +198,13 @@ bool towerProx()
 
      if (click == 1 && (x == 1 || x == 2 || x == 3)) //Tower 1 has been placed and there is an enemy at one of the areas it can hit.
      {
-          std::cout << "Enemy at first tower" << std::endl;
+          //std::cout << "Enemy at first tower" << std::endl;
 
           return true;
      }
      if (click2 == 2 && (x == 4 || x == 5)) //Tower 2 has been placed and there is an enemy at one of the areas it can hit.
      {
-          std::cout << "Enemy at second tower" << std::endl;
+         // std::cout << "Enemy at second tower" << std::endl;
 
           return true;
      }
@@ -214,15 +217,25 @@ bool damage()
      if (k == 2)
      {
           if (towerProx())
+          {
+               mobhp = mobhp - 0.5;
+               if (mobhp == 0)
+               {
+               coins++;
+               std::cout << "You defeated an enemy and recieved 1 coin" << std::endl;
+               std::cout << "You now have " << coins << " coin(s)" << std::endl;
+               }
                return true;
+          }
           else
                return false;
+          
      }
      return false;
 
 }
 
-void enemy(int num) //Written By Ryan
+void enemy(int num)
 {
      GLubyte r = 255;
      GLubyte g = 0;
@@ -236,11 +249,18 @@ void enemy(int num) //Written By Ryan
                g = 255;
                b = 255;
           }
+          if (mobhp <= 0)
+          {
+               r = 139;
+               g = 69;
+               b = 19;
+          }
           glColor3ub(r, g, b);
           glVertex2f(0.25f, 0.9f);
           glVertex2f(0.1f, 0.6f);
           glVertex2f(0.4f, 0.6f);
           glEnd();
+          Sleep(200);
           break;
      case 2: glBegin(GL_TRIANGLES); //Position 6
           if (isdamaged)
@@ -248,11 +268,18 @@ void enemy(int num) //Written By Ryan
                g = 255;
                b = 255;
           }
+          if (mobhp <= 0)
+          {
+               r = 139;
+               g = 69;
+               b = 19;
+          }
           glColor3ub(r, g, b);
           glVertex2f(0.25f, 0.4f);
           glVertex2f(0.1f, 0.1f);
           glVertex2f(0.4f, 0.1f);
           glEnd();
+          Sleep(200);
           break;
      case 3: glBegin(GL_TRIANGLES); //Position 7
           if (isdamaged)
@@ -260,11 +287,18 @@ void enemy(int num) //Written By Ryan
                g = 255;
                b = 255;
           }
+          if (mobhp <= 0)
+          {
+               r = 139;
+               g = 69;
+               b = 19;
+          }
           glColor3ub(r, g, b);
           glVertex2f(-0.25f, 0.4f);
           glVertex2f(-0.4f, 0.1f);
           glVertex2f(-0.1f, 0.1f);
           glEnd();
+          Sleep(200);
           break;
      case 4: glBegin(GL_TRIANGLES); //Position 10
           if (isdamaged)
@@ -272,12 +306,18 @@ void enemy(int num) //Written By Ryan
                g = 255;
                b = 255;
           }
+          if (mobhp <= 0)
+          {
+               r = 139;
+               g = 69;
+               b = 19;
+          }
           glColor3ub(r, g, b);
           glVertex2f(-0.25f, -0.1f);
           glVertex2f(-0.4f, -0.4f);
           glVertex2f(-0.1f, -0.4f);
           glEnd();
-
+          Sleep(200);
           break;
      case 5: glBegin(GL_TRIANGLES); //Position 14
           if (isdamaged)
@@ -285,11 +325,18 @@ void enemy(int num) //Written By Ryan
                g = 255;
                b = 255;
           }
+          if (mobhp <= 0)
+          {
+               r = 139;
+               g = 69;
+               b = 19;
+          }
           glColor3ub(r, g, b);
           glVertex2f(-0.25f, -0.6f);
           glVertex2f(-0.4f, -0.9f);
           glVertex2f(-0.1f, -0.9f);
           glEnd();
+          Sleep(200);
           break;
      case 6: glBegin(GL_TRIANGLES); //Position 14
           glColor3ub(139, 69, 19); // set color brown
@@ -297,6 +344,7 @@ void enemy(int num) //Written By Ryan
           glVertex2f(-0.4f, -0.9f);
           glVertex2f(-0.1f, -0.9f);
           glEnd();
+          Sleep(200);
           break;
      }
 }
@@ -364,7 +412,7 @@ int main(void)
      if (glewInit() != GLEW_OK)
           std::cout << "Error!" << std::endl;
 
-     std::cout << glGetString(GL_VERSION) << std::endl;
+     std::cout << "Welcome to Aloha Tower Defense." << std::endl << "Blue Square - Start Game" << std::endl << "Grey Diamonds - Activate Tower (Costs 1 coin)" << std::endl << "Yellow Square - Reset Game" << std::endl << std::endl;
 
 
      /* Loop until the user closes the window */
@@ -387,7 +435,7 @@ int main(void)
                     coins--;
 
                     click = 1;
-                    std::cout << " Tower 1 Placed!" << std::endl;
+                    std::cout << "Tower 1 Activated!" << std::endl;
                }
                else {
                     std::cout << "Not enough coins" << std::endl;
@@ -403,7 +451,7 @@ int main(void)
                     coins--;
 
                     click2 = 2;
-                    std::cout << " Tower 2 Placed!" << std::endl;
+                    std::cout << "Tower 2 Activated!" << std::endl;
                }
                else {
                     std::cout << "Not enough coins" << std::endl;
@@ -417,8 +465,22 @@ int main(void)
           if (state == GLFW_PRESS && xpos >= 0 && xpos <= 125 && ypos >= 0 && ypos <= 125)
           {
                start = true;
+               std::cout << "Round Started." << std::endl << "You have " << health << " Health" << std::endl << "You have " << coins << " coin" << std::endl;
+               Sleep(200);
                x = 0;
                startTime = glfwGetTime();
+          }
+          if (state == GLFW_PRESS && xpos >= 0 && xpos <= 125 && ypos >= 875 && ypos <= 1000)
+          {
+               std::cout << "Resetting Game" << std::endl;
+               Sleep(200);
+               currentTime = glfwGetTime();
+               x = 8;
+               coins = 1;
+               health = 4;
+               click = 0;
+               click2 = 0;
+               mobhp = 3;
           }
           if (start) {
 
@@ -433,21 +495,16 @@ int main(void)
                     k = 0;
                }
 
-               if (x >= 5 && x <6 && (currentTime - startTime) > x * 1) {
+               if (x >= 5 && x <6 && (currentTime - startTime) > x * 1 && mobhp > 0) {
                     x += 1;
 
                     health--;
 
-                    std::cout << "Health:" << std::endl;
-
-                    std::cout << health << std::endl;
-
+                    std::cout << "An enemy has made it though, you lose 1 health:" << std::endl;
+                    std::cout << "You now have " << health << " health." << std::endl;
                }
 
           }
-
-
-
           /* Swap front and back buffers */
           glfwSwapBuffers(window);
 
