@@ -194,7 +194,7 @@ void map()
 
 bool towerProx()
 {
-     
+
      if (click == 1 && (x == 1 || x == 2 || x == 3)) //Tower 1 has been placed and there is an enemy at one of the areas it can hit.
      {
           std::cout << "Enemy at first tower" << std::endl;
@@ -215,11 +215,11 @@ bool damage()
 {
 
      if (towerProx()) {
-          return true;          
+          return true;
      }
      else
-         return false;
-     
+          return false;
+
 }
 
 void enemy(int num) //Written By Ryan
@@ -336,11 +336,7 @@ void turret(int num)
 
 int main(void)
 {
-     // Set OpenGL options
-     glEnable(GL_CULL_FACE);
-     glEnable(GL_BLEND);
-     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+     
      GLFWwindow* window;
 
      /* Initialize the library */
@@ -366,7 +362,7 @@ int main(void)
 
      std::cout << glGetString(GL_VERSION) << std::endl;
 
-     
+
      /* Loop until the user closes the window */
 
      while (!glfwWindowShouldClose(window))
@@ -423,13 +419,13 @@ int main(void)
           if (start) {
 
 
-               
+
                enemy(x);
                if (x < 5 && (currentTime - startTime) > x * 1) {
-                    x += 1;                   
+                    x += 1;
                     towerProx();
                }
-               
+
                if (x >= 5 && x <6 && (currentTime - startTime) > x * 1) {
                     x += 1;
 
