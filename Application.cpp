@@ -412,7 +412,7 @@ int main(void)
      if (glewInit() != GLEW_OK)
           std::cout << "Error!" << std::endl;
 
-     std::cout << "Welcome to Aloha Tower Defense." << std::endl << "Blue Square - Start Game" << std::endl << "Grey Diamonds - Activate Tower (Costs 1 coin)" << std::endl << "Yellow Square - Reset Game" << std::endl << std::endl;
+     std::cout << "Welcome to Aloha Tower Defense. Written By Aaron Huff & Ryan Briner" << std::endl << "Blue Square - Start Game" << std::endl << "Grey Diamonds - Activate Tower (Costs 1 coin)" << std::endl << "Yellow Square - Reset Game" << std::endl << std::endl;
 
 
      /* Loop until the user closes the window */
