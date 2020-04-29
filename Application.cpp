@@ -204,7 +204,7 @@ bool towerProx()
      }
      if (click2 == 2 && (x == 4 || x == 5)) //Tower 2 has been placed and there is an enemy at one of the areas it can hit.
      {
-         // std::cout << "Enemy at second tower" << std::endl;
+          // std::cout << "Enemy at second tower" << std::endl;
 
           return true;
      }
@@ -216,20 +216,20 @@ bool damage()
 {
      if (k == 2)
      {
-          if (towerProx() && mobhp > 0)
+          if (towerProx()&& mobhp > 0)
           {
                mobhp = mobhp - 0.5;
                if (mobhp == 0)
                {
-               coins++;
-               std::cout << "You defeated an enemy and recieved 1 coin" << std::endl;
-               std::cout << "You now have " << coins << " coin(s)" << std::endl;
+                    coins++;
+                    std::cout << "You defeated an enemy and recieved 1 coin" << std::endl;
+                    std::cout << "You now have " << coins << " coin(s)" << std::endl;
                }
                return true;
           }
           else
                return false;
-          
+
      }
      return false;
 
@@ -464,11 +464,11 @@ int main(void)
 
           if (state == GLFW_PRESS && xpos >= 0 && xpos <= 125 && ypos >= 0 && ypos <= 125)
           {
-               start = true;
-               std::cout << "Round Started." << std::endl << "You have " << health << " Health" << std::endl << "You have " << coins << " coin(s)" << std::endl;
+               start = true;              
+               std::cout << "Round Started." << std::endl << "You have " << health << " Health" << std::endl << "You have " << coins << " coin" << std::endl;
                Sleep(200);
-               x = 0;
                mobhp = 3;
+               x = 0;
                startTime = glfwGetTime();
           }
           if (state == GLFW_PRESS && xpos >= 0 && xpos <= 125 && ypos >= 875 && ypos <= 1000)
@@ -484,6 +484,8 @@ int main(void)
                mobhp = 3;
           }
           if (start) {
+
+               
                enemy(x);
                k++;
 
