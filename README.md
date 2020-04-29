@@ -12,6 +12,8 @@ Flickering Triangle (Red/White): Mob has taken damage
 
 Blue Square: Start Button
 
+Yellow Square: Reset Button
+
 Green Area: Unplayable Land
 
 Brown Area: Mob path
