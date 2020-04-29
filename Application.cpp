@@ -5,10 +5,6 @@
 
 //Declarations
 int x = 0;
-int k = 0;
-int z = 0;
-int o = 0;
-int g = 0;
 int mobhp = 3;
 int click = 0;
 int click2 = 0;
