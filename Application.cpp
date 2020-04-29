@@ -216,7 +216,7 @@ bool damage()
 {
      if (k == 2)
      {
-          if (towerProx())
+          if (towerProx() && mobhp > 0)
           {
                mobhp = mobhp - 0.5;
                if (mobhp == 0)
@@ -465,9 +465,10 @@ int main(void)
           if (state == GLFW_PRESS && xpos >= 0 && xpos <= 125 && ypos >= 0 && ypos <= 125)
           {
                start = true;
-               std::cout << "Round Started." << std::endl << "You have " << health << " Health" << std::endl << "You have " << coins << " coin" << std::endl;
+               std::cout << "Round Started." << std::endl << "You have " << health << " Health" << std::endl << "You have " << coins << " coin(s)" << std::endl;
                Sleep(200);
                x = 0;
+               mobhp = 3;
                startTime = glfwGetTime();
           }
           if (state == GLFW_PRESS && xpos >= 0 && xpos <= 125 && ypos >= 875 && ypos <= 1000)
@@ -483,9 +484,6 @@ int main(void)
                mobhp = 3;
           }
           if (start) {
-
-
-
                enemy(x);
                k++;
 
