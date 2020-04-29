@@ -4,7 +4,7 @@ Tower Defense Game for C-335
 == USER MANUAL ==
 Grey Squares: Available Turret Location
 
-	Purple Square: Active Turret
+Purple Square: Active Turret
 
 Red Triangle: Mob
 
@@ -12,7 +12,7 @@ Flickering Triangle (Red/White): Mob has taken damage
 
 Blue Square: Start Button
 
-	Green Area: Unplayable Land
+Green Area: Unplayable Land
 
 Brown Area: Mob path
 
